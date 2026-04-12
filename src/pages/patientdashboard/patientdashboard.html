@@ -1,0 +1,94 @@
+<!-- ================= FILTER ================= -->
+<div class="card shadow-sm border-0 mb-2">
+  <div class="card-body py-2">
+
+    <div class="row g-2 align-items-end">
+
+      <div class="col-md-3">
+        <label class="form-label small mb-1">From Date</label>
+        <input type="date" class="form-control form-control-sm" [(ngModel)]="fromDate">
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label small mb-1">To Date</label>
+        <input type="date" class="form-control form-control-sm" [(ngModel)]="toDate">
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label small mb-1">Camp Code</label>
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="campCode">
+      </div>
+
+      <div class="col-md-3 d-flex gap-1">
+        <button class="btn btn-primary btn-sm w-100" (click)="applyFilter()">Filter</button>
+        <button class="btn btn-outline-secondary btn-sm w-100" (click)="resetFilter()">Reset</button>
+        <button class="btn btn-success btn-sm w-100" (click)="generateReport()">Generate Report</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+  <!-- ================= TABLE ================= -->
+  <div class="card shadow border-0">
+
+    <div class="card-body table-responsive p-0">
+
+      <table id="reportTable"
+             class="table table-striped table-hover table-bordered align-middle text-center mb-0">
+
+        <!-- ================= FULL HEADER LABELS ================= -->
+        <thead class="table-dark sticky-top">
+          <tr>
+            <th>Campcode</th>
+            <th>Beneficiary Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Address (Village, Taluk, District, State, Country)</th>
+            <th>Contact</th>
+            <th>NID</th>
+            <th>Medical Record Number</th>
+            <th>Pre Surgery Visual Acuity</th>
+            <th>Date of Surgery</th>
+            <th>Type of Surgery</th>
+            <th>Eye Operated (Left/Right)</th>
+            <th>Post Surgery Visual Acuity (Day 1)</th>
+            <th>Beneficiary Photo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of filtered">
+
+            <td>{{ p.campcode }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.gender }}</td>
+            <td>{{ p.age }}</td>
+            <td>{{ p.address }}</td>
+            <td>{{ p.contactNo }}</td>
+            <td>{{ p.nid }}</td>
+            <td>{{ p.medicalRecordNumber }}</td>
+            <td>{{ p.preSurgeryVisualAcuity }}</td>
+            <td>{{ p.dateOfSurgery | date:'dd-MM-yyyy' }}</td>
+            <td>{{ p.typeOfSurgery }}</td>
+            <td>{{ p.eyeOperated }}</td>
+            <td>{{ p.postSurgeryVisualAcuity }}</td>
+
+            <td>
+              <img *ngIf="p.beneficiaryPhoto"
+                   [src]="'data:image/png;base64,' + p.beneficiaryPhoto"
+                   width="50"
+                   height="50"
+                   class="rounded"
+                   style="object-fit:cover;">
+              <span *ngIf="!p.beneficiaryPhoto">No Photo</span>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>

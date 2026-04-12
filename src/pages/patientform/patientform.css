@@ -1,0 +1,312 @@
+/* ================================================
+   PROFESSIONAL PATIENT FORM STYLES
+   ================================================ */
+
+:root {
+  --primary: #0d6efd;
+  --primary-dark: #0b5ed7;
+  --secondary: #6c757d;
+  --success: #198754;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --border-radius: 10px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================= PAGE WRAPPER ================= */
+.container-fluid {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  min-height: calc(100vh - 60px);
+  padding: 16px !important;
+}
+
+/* ================= CARD STYLING ================= */
+.card {
+  border-radius: var(--border-radius) !important;
+  border: none !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: var(--transition);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg) !important;
+  transform: translateY(-1px);
+}
+
+.card-body {
+  padding: 18px !important;
+}
+
+/* ================= FORM HEADER ================= */
+h5 {
+  font-weight: 700;
+  color: var(--dark);
+  font-size: 1.15rem;
+  position: relative;
+  padding-bottom: 8px;
+  margin-bottom: 16px !important;
+}
+
+h5::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), #40a9ff);
+  border-radius: 2px;
+}
+
+/* ================= FORM FIELDS ================= */
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.825rem;
+}
+
+.form-control, .form-select {
+  border-radius: 6px !important;
+  border: 1.5px solid #e9ecef !important;
+  padding: 6px 10px !important;
+  font-size: 0.875rem !important;
+  min-height: 34px !important;
+  height: 34px !important;
+  transition: var(--transition);
+  background-color: #fcfcfd;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15) !important;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.form-control:hover, .form-select:hover {
+  border-color: #adb5bd;
+}
+
+/* ================= FORM ROWS ================= */
+.row.mb-2 {
+  margin-bottom: 8px !important;
+  padding: 2px 0;
+}
+
+.row.align-items-center > .col-4 {
+  padding-right: 8px;
+}
+
+/* ================= CAMERA SECTION ================= */
+.border.rounded.p-2.text-center {
+  border-radius: var(--border-radius) !important;
+  border: 2px dashed #dee2e6 !important;
+  background: linear-gradient(145deg, #f8f9fa, #ffffff);
+  transition: var(--transition);
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.border.rounded.p-2.text-center:hover {
+  border-color: var(--primary) !important;
+  background: #f0f7ff;
+}
+
+video, img {
+  border-radius: 6px;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  border: none !important;
+  transition: var(--transition);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  white-space: nowrap;
+}
+
+.btn-sm {
+  padding: 4px 8px !important;
+  font-size: 0.775rem !important;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* ================= TABLE STYLING ================= */
+.table {
+  border-radius: var(--border-radius) !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.85rem;
+}
+
+.table thead th {
+  background: linear-gradient(135deg, #212529 0%, #343a40 100%) !important;
+  border: none !important;
+  font-weight: 600;
+  padding: 10px 8px !important;
+  font-size: 0.8rem;
+}
+
+.table tbody td {
+  padding: 8px !important;
+  vertical-align: middle;
+  border-color: #f1f3f5;
+}
+
+.table tbody tr {
+  transition: var(--transition);
+}
+
+.table tbody tr:hover {
+  background-color: #f0f7ff !important;
+}
+
+/* ================= MODAL STYLING ================= */
+.modal {
+  backdrop-filter: blur(6px);
+}
+
+.modal-content {
+  border-radius: var(--border-radius) !important;
+  border: none !important;
+  box-shadow: var(--shadow-lg) !important;
+  overflow: hidden;
+}
+
+.modal-content h4 {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 20px !important;
+  font-size: 1.25rem;
+}
+
+/* ================= SCROLLBAR CUSTOMIZATION ================= */
+.card-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.card-body::-webkit-scrollbar-track {
+  background: #f1f3f5;
+  border-radius: 3px;
+}
+
+.card-body::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+  border-radius: 3px;
+}
+
+.card-body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ================= HR DIVIDER ================= */
+hr {
+  margin: 18px 0 !important;
+  border-color: #e9ecef;
+  opacity: 0.7;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+@media (max-width: 991.98px) {
+  .container-fluid {
+    padding: 12px !important;
+  }
+  
+  .card-body {
+    padding: 16px !important;
+  }
+  
+  .row.mb-2 > .col-4 {
+    margin-bottom: 3px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  h5 {
+    font-size: 1.1rem;
+  }
+  
+  .btn {
+    padding: 10px !important;
+  }
+}
+
+/* ================= PRINT STYLES ================= */
+@media print {
+  .container-fluid {
+    background: white !important;
+    padding: 0 !important;
+  }
+  
+  .card {
+    box-shadow: none !important;
+  }
+  
+  button, .no-print {
+    display: none !important;
+  }
+  
+  .modal {
+    position: static !important;
+    background: white !important;
+  }
+  
+  .modal-content {
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  body {
+    background: white !important;
+  }
+}
+
+/* ================= ACCESSIBILITY ================= */
+.form-control:focus-visible,
+.form-select:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid rgba(13, 110, 253, 0.5);
+  outline-offset: 2px;
+}
+
+/* ================= HIDE IN PDF ================= */
+.hide-in-pdf {
+  display: block;
+}
+
+@media print {
+  .hide-in-pdf {
+    display: none !important;
+  }
+}

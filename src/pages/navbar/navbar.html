@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark shadow">
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" routerLink="/">
+      MediCapture
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <!-- LEFT MENU - ONLY SHOW WHEN AUTHENTICATED -->
+      <ul class="navbar-nav me-auto" *ngIf="isAuthenticated">
+
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="patientdashboard"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}">
+            📊 Reports
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="patientform"
+             routerLinkActive="active">
+            📝 Add Beneficiary
+          </a>
+        </li>
+      </ul>
+
+      <!-- RIGHT SIDE -->
+      <ul class="navbar-nav align-items-center">
+        
+        <!-- ONLY SHOW WHEN AUTHENTICATED -->
+        <ng-container *ngIf="isAuthenticated">
+          <li class="nav-item">
+            <span class="user-badge text-white">
+              👤 {{ currentUser?.username || 'User' }}
+            </span>
+          </li>
+          
+          <li class="nav-item">
+            <button class="btn btn-light text-primary fw-semibold logout-btn"
+                    (click)="logout()">
+              Logout
+            </button>
+          </li>
+        </ng-container>
+
+        <!-- SHOW WHEN NOT AUTHENTICATED -->
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="btn btn-light text-primary fw-semibold" routerLink="/login">
+            Login
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
