@@ -33,6 +33,7 @@
   transition: var(--transition);
   background: #ffffff;
   overflow: hidden;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .card:hover {
@@ -112,9 +113,9 @@ h5::after {
   background: linear-gradient(145deg, #f8f9fa, #ffffff);
   transition: var(--transition);
   min-height: 260px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block; /* FIXED */
+  text-align: center;
+  overflow: hidden;
 }
 
 .border.rounded.p-2.text-center:hover {
@@ -122,7 +123,21 @@ h5::after {
   background: #f0f7ff;
 }
 
-video, img {
+/* ================= VIDEO FIX (CRITICAL) ================= */
+video {
+  width: 100% !important;
+  height: 260px !important;
+  object-fit: cover;
+  border-radius: 6px;
+  background: black;
+  transform: translateZ(0);
+}
+
+video[hidden] {
+  display: none !important;
+}
+
+img {
   border-radius: 6px;
 }
 
@@ -182,7 +197,7 @@ video, img {
   background-color: #f0f7ff !important;
 }
 
-/* ================= MODAL STYLING ================= */
+/* ================= MODAL ================= */
 .modal {
   backdrop-filter: blur(6px);
 }
@@ -201,43 +216,37 @@ video, img {
   font-size: 1.25rem;
 }
 
-/* ================= SCROLLBAR CUSTOMIZATION ================= */
+/* ================= SCROLLBAR ================= */
 .card-body::-webkit-scrollbar {
   width: 5px;
 }
 
 .card-body::-webkit-scrollbar-track {
   background: #f1f3f5;
-  border-radius: 3px;
 }
 
 .card-body::-webkit-scrollbar-thumb {
   background: #adb5bd;
-  border-radius: 3px;
 }
 
 .card-body::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
 
-/* ================= HR DIVIDER ================= */
+/* ================= HR ================= */
 hr {
   margin: 18px 0 !important;
   border-color: #e9ecef;
   opacity: 0.7;
 }
 
-/* ================= ANIMATIONS ================= */
+/* ================= ANIMATION ================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.card {
-  animation: fadeIn 0.4s ease-out;
-}
-
-/* ================= RESPONSIVE DESIGN ================= */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 991.98px) {
   .container-fluid {
     padding: 12px !important;
@@ -245,10 +254,6 @@ hr {
   
   .card-body {
     padding: 16px !important;
-  }
-  
-  .row.mb-2 > .col-4 {
-    margin-bottom: 3px;
   }
 }
 
@@ -262,7 +267,7 @@ hr {
   }
 }
 
-/* ================= PRINT STYLES ================= */
+/* ================= PRINT ================= */
 @media print {
   .container-fluid {
     background: white !important;
@@ -290,6 +295,10 @@ hr {
   body {
     background: white !important;
   }
+
+  .hide-in-pdf {
+    display: none !important;
+  }
 }
 
 /* ================= ACCESSIBILITY ================= */
@@ -303,10 +312,4 @@ hr {
 /* ================= HIDE IN PDF ================= */
 .hide-in-pdf {
   display: block;
-}
-
-@media print {
-  .hide-in-pdf {
-    display: none !important;
-  }
 }

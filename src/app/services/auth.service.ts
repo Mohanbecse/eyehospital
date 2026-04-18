@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { ConfigService } from './config.service';
+import { AppConfigService } from './app-config.service';
 
 export interface LoginResponse {
   token: string;
@@ -17,8 +17,8 @@ export class AuthService {
 
   private apiUrl: string;
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
-    this.apiUrl = `${this.configService.getApiUrl()}/auth`;
+  constructor(private http: HttpClient, private config: AppConfigService) {
+    this.apiUrl = `${this.config.apiUrl}/auth`;
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       this.currentUserSubject.next(JSON.parse(storedUser));

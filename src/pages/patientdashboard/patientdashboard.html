@@ -22,7 +22,8 @@
       <div class="col-md-3 d-flex gap-1">
         <button class="btn btn-primary btn-sm w-100" (click)="applyFilter()">Filter</button>
         <button class="btn btn-outline-secondary btn-sm w-100" (click)="resetFilter()">Reset</button>
-        <button class="btn btn-success btn-sm w-100" (click)="generateReport()">Generate Report</button>
+        <!-- <button class="btn btn-success btn-sm w-100" (click)="generateReport()">Generate Report</button> -->
+        <button class="btn btn-success btn-sm w-100" (click)="generateExcel()">Excel Report</button>
       </div>
 
     </div>
@@ -30,65 +31,121 @@
   </div>
 </div>
 
-  <!-- ================= TABLE ================= -->
-  <div class="card shadow border-0">
+<!-- ================= PAGINATION ================= -->
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-2">
 
-    <div class="card-body table-responsive p-0">
+  <!-- Left: Page Size Dropdown -->
+  <div>
+    <label class="me-2">Rows per page:</label>
+    <select class="form-select form-select-sm d-inline w-auto"
+            [(ngModel)]="pageSize"
+            (change)="onPageSizeChange()">
+      <option *ngFor="let size of pageSizeOptions" [value]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
 
-      <table id="reportTable"
-             class="table table-striped table-hover table-bordered align-middle text-center mb-0">
+  <!-- Right: Count + Navigation -->
+  <div class="d-flex align-items-center gap-2">
 
-        <!-- ================= FULL HEADER LABELS ================= -->
-        <thead class="table-dark sticky-top">
-          <tr>
-            <th>Campcode</th>
-            <th>Beneficiary Name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Address (Village, Taluk, District, State, Country)</th>
-            <th>Contact</th>
-            <th>NID</th>
-            <th>Medical Record Number</th>
-            <th>Pre Surgery Visual Acuity</th>
-            <th>Date of Surgery</th>
-            <th>Type of Surgery</th>
-            <th>Eye Operated (Left/Right)</th>
-            <th>Post Surgery Visual Acuity (Day 1)</th>
-            <th>Beneficiary Photo</th>
-          </tr>
-        </thead>
+    <!-- 👉 Record Count -->
+    <small class="text-muted">
+      Showing {{ pagedData.length }} of {{ patients.length }} records
+    </small>
 
-        <tbody>
-          <tr *ngFor="let p of filtered">
+    <!-- 👉 Navigation -->
+    <div class="btn-group">
 
-            <td>{{ p.campcode }}</td>
-            <td>{{ p.name }}</td>
-            <td>{{ p.gender }}</td>
-            <td>{{ p.age }}</td>
-            <td>{{ p.address }}</td>
-            <td>{{ p.contactNo }}</td>
-            <td>{{ p.nid }}</td>
-            <td>{{ p.medicalRecordNumber }}</td>
-            <td>{{ p.preSurgeryVisualAcuity }}</td>
-            <td>{{ p.dateOfSurgery | date:'dd-MM-yyyy' }}</td>
-            <td>{{ p.typeOfSurgery }}</td>
-            <td>{{ p.eyeOperated }}</td>
-            <td>{{ p.postSurgeryVisualAcuity }}</td>
+      <button class="btn btn-sm btn-outline-primary"
+              (click)="changePage(currentPage - 1)"
+              [disabled]="currentPage === 1">
+        Prev
+      </button>
 
-            <td>
-              <img *ngIf="p.beneficiaryPhoto"
-                   [src]="'data:image/png;base64,' + p.beneficiaryPhoto"
-                   width="50"
-                   height="50"
-                   class="rounded"
-                   style="object-fit:cover;">
-              <span *ngIf="!p.beneficiaryPhoto">No Photo</span>
-            </td>
+      <button *ngFor="let page of [].constructor(totalPages); let i = index"
+              class="btn btn-sm"
+              [ngClass]="{
+                'btn-primary': currentPage === (i + 1),
+                'btn-outline-primary': currentPage !== (i + 1)
+              }"
+              (click)="changePage(i + 1)">
+        {{ i + 1 }}
+      </button>
 
-          </tr>
-        </tbody>
-
-      </table>
+      <button class="btn btn-sm btn-outline-primary"
+              (click)="changePage(currentPage + 1)"
+              [disabled]="currentPage === totalPages">
+        Next
+      </button>
 
     </div>
+
   </div>
+
+</div>
+<!-- ================= TABLE ================= -->
+<div class="card shadow border-0">
+
+  <div class="card-body table-responsive p-0">
+
+    <table id="reportTable"
+           class="table table-striped table-hover table-bordered align-middle text-center mb-0">
+
+      <!-- ================= FULL HEADER LABELS ================= -->
+      <thead class="table-dark sticky-top">
+        <tr>
+          <th>Campcode</th>
+          <th>Beneficiary Name</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Address (Village, Taluk, District, State, Country)</th>
+          <th>Contact</th>
+          <th>NID</th>
+          <th>Medical Record Number</th>
+          <th>Pre Surgery Visual Acuity</th>
+          <th>Date of Surgery</th>
+          <th>Type of Surgery</th>
+          <th>Eye Operated (Left/Right)</th>
+          <th>Post Surgery Visual Acuity (Day 1)</th>
+          <th>Beneficiary Photo</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let p of pagedData">
+
+          <td>{{ p.campcode }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.gender }}</td>
+          <td>{{ p.age }}</td>
+          <td>{{ p.address }}</td>
+          <td>{{ p.contactNo }}</td>
+          <td>{{ p.nid }}</td>
+          <td>{{ p.medicalRecordNumber }}</td>
+          <td>{{ p.preSurgeryVisualAcuity }}</td>
+          <td>{{ p.dateOfSurgery | date:'dd-MM-yyyy' }}</td>
+          <td>{{ p.typeOfSurgery }}</td>
+          <td>{{ p.eyeOperated }}</td>
+          <td>{{ p.postSurgeryVisualAcuity }}</td>
+
+          <td>
+            <img *ngIf="p.beneficiaryPhoto"
+                 [src]="'data:image/png;base64,' + p.beneficiaryPhoto"
+                 width="50"
+                 height="50"
+                 class="rounded"
+                 style="object-fit:cover;">
+            <span *ngIf="!p.beneficiaryPhoto">No Photo</span>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap gap-2">
+    </div>
+
+  </div>
+</div>

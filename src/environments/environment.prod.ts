@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://yourapi-production-url.com/api'
+  apiUrl: 'http://192.168.0.125:7191/api'
 };

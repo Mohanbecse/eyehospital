@@ -1,41 +1,51 @@
 <div class="container-fluid py-3">
+  <!-- HEADER WITH TITLE & ACTION BUTTON -->
+  <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <h4 class="mb-0 fw-bold text-primary">Beneficiary Management</h4>
+    <button class="btn btn-primary px-4 shadow-sm" (click)="patientListModal = true">
+      <i class="bi bi-people-fill me-2"></i> View All Beneficiaries
+    </button>
+  </div>
 
   <div class="row g-3 align-items-start">
 
-    <!-- ================= LEFT PANEL ================= -->
-    <div class="col-12 col-lg-6">
-
+    <!-- ================= FORM PANEL (PROFESSIONALLY CENTERED) ================= -->
+    <div class="col-12 col-lg-8 col-xl-7 mx-auto">
       <div class="card shadow border-0">
-        <div class="card-body p-3" style="max-height: 100vh; overflow-y: auto;">
-
-          <h5 class="text-center mb-3">
-            {{ isEditMode ? 'Edit Patient' : 'Add Patient' }}
-          </h5>
+        <div class="card-body p-3 p-md-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h5 class="mb-0 fw-bold">
+        <i class="bi bi-person-lines-fill me-2 text-primary"></i>
+        {{ isEditMode ? 'Edit Beneficiary' : 'Add New Beneficiary' }}
+      </h5>
+      <span class="badge" [ngClass]="isEditMode ? 'bg-warning' : 'bg-success'">
+        {{ isEditMode ? 'EDIT MODE' : 'NEW ENTRY' }}
+      </span>
+    </div>
 
           <form (ngSubmit)="savePatient()">
-
             <!-- ===== ALL YOUR FIELDS (UNCHANGED) ===== -->
             <!-- CAMPCODE -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Camp Code:</label></div>
-              <div class="col-8">
-                <input class="form-control" [(ngModel)]="patient.campcode" name="campcode">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Camp Code:</label></div>
+              <div class="col-12 col-md-8">
+                <input class="form-control" [(ngModel)]="patient.campcode" name="campcode" />
               </div>
             </div>
 
             <!-- NAME -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Beneficiary Name:</label></div>
-              <div class="col-8">
-                <input class="form-control" [(ngModel)]="patient.name" name="name">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Beneficiary Name: <span class="text-danger">*</span></label></div>
+              <div class="col-12 col-md-8">
+                <input class="form-control" [(ngModel)]="patient.name" name="name" required />
               </div>
             </div>
 
             <!-- GENDER -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Gender:</label></div>
-              <div class="col-8">
-                <select class="form-select" [(ngModel)]="patient.gender" name="gender">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Gender: <span class="text-danger">*</span></label></div>
+              <div class="col-12 col-md-8">
+                <select class="form-select" [(ngModel)]="patient.gender" name="gender" required>
                   <option value="">Select</option>
                   <option>Male</option>
                   <option>Female</option>
@@ -45,85 +55,100 @@
             </div>
 
             <!-- AGE -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Age:</label></div>
-              <div class="col-8">
-                <input type="number" class="form-control"
-                       [(ngModel)]="patient.age" name="age" min="0">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Age: <span class="text-danger">*</span></label></div>
+              <div class="col-12 col-md-8">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="patient.age"
+                  name="age"
+                  min="0"
+                  required
+                />
               </div>
             </div>
 
             <!-- ADDRESS -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Address:</label></div>
-              <div class="col-8">
-                <input class="form-control" [(ngModel)]="patient.address" name="address">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Address: <span class="text-danger">*</span></label></div>
+              <div class="col-12 col-md-8">
+                <input class="form-control" [(ngModel)]="patient.address" name="address" required />
               </div>
             </div>
 
             <!-- CONTACT -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Contact No:</label></div>
-              <div class="col-8">
-                <input class="form-control" [(ngModel)]="patient.contactNo" name="contactNo">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Contact No: <span class="text-danger">*</span></label></div>
+              <div class="col-12 col-md-8">
+                <input class="form-control" [(ngModel)]="patient.contactNo" name="contactNo" required />
               </div>
             </div>
 
             <!-- NID -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">NID:</label></div>
-              <div class="col-8">
-                <input class="form-control" [(ngModel)]="patient.nid" name="nid">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">NID:</label></div>
+              <div class="col-12 col-md-8">
+                <input class="form-control" [(ngModel)]="patient.nid" name="nid" />
               </div>
             </div>
 
             <!-- MRN -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Medical Record No:</label></div>
-              <div class="col-8">
-                <input class="form-control"
-                       [(ngModel)]="patient.medicalRecordNumber"
-                       name="medicalRecordNumber">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Medical Record No:</label></div>
+              <div class="col-12 col-md-8">
+                <input
+                  class="form-control"
+                  [(ngModel)]="patient.medicalRecordNumber"
+                  name="medicalRecordNumber"
+                />
               </div>
             </div>
 
             <!-- PRE VA -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Pre Surgery Visual Acuity:</label></div>
-              <div class="col-8">
-                <input class="form-control"
-                       [(ngModel)]="patient.preSurgeryVisualAcuity"
-                       name="preSurgeryVisualAcuity">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4">
+                <label class="form-label mb-1 mb-md-0 fw-medium">Pre Surgery Visual Acuity:</label>
+              </div>
+              <div class="col-12 col-md-8">
+                <select class="form-select" [(ngModel)]="patient.preSurgeryVisualAcuity" name="preSurgeryVisualAcuity">
+                  <option value="">Select VA Value</option>
+                  <option *ngFor="let va of vaOptions" [value]="va">{{ va }}</option>
+                </select>
               </div>
             </div>
 
             <!-- DATE -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Date of Surgery:</label></div>
-              <div class="col-8">
-                <input type="date" class="form-control"
-                       [(ngModel)]="patient.dateOfSurgery"
-                       name="dateOfSurgery">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Date of Surgery: <span class="text-danger">*</span></label></div>
+              <div class="col-12 col-md-8">
+                <input
+                  type="date"
+                  class="form-control"
+                  [(ngModel)]="patient.dateOfSurgery"
+                  name="dateOfSurgery"
+                  required
+                />
               </div>
             </div>
 
             <!-- TYPE -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Type of Surgery:</label></div>
-              <div class="col-8">
-                <input class="form-control"
-                       [(ngModel)]="patient.typeOfSurgery"
-                       name="typeOfSurgery">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Type of Surgery:</label></div>
+              <div class="col-12 col-md-8">
+                <input
+                  class="form-control"
+                  [(ngModel)]="patient.typeOfSurgery"
+                  name="typeOfSurgery"
+                />
               </div>
             </div>
 
             <!-- EYE -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Eye Operated:</label></div>
-              <div class="col-8">
-                <select class="form-select"
-                        [(ngModel)]="patient.eyeOperated"
-                        name="eyeOperated">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4"><label class="form-label mb-1 mb-md-0 fw-medium">Eye Operated:</label></div>
+              <div class="col-12 col-md-8">
+                <select class="form-select" [(ngModel)]="patient.eyeOperated" name="eyeOperated">
                   <option value="">Select Eye</option>
                   <option value="Left">Left</option>
                   <option value="Right">Right</option>
@@ -133,227 +158,319 @@
             </div>
 
             <!-- POST VA -->
-            <div class="row mb-2 align-items-center">
-              <div class="col-4"><label class="form-label mb-0">Post Surgery Visual Acuity:</label></div>
-              <div class="col-8">
-                <input class="form-control"
-                       [(ngModel)]="patient.postSurgeryVisualAcuity"
-                       name="postSurgeryVisualAcuity">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-4">
+                <label class="form-label mb-1 mb-md-0 fw-medium">Post Surgery Visual Acuity:</label>
+              </div>
+              <div class="col-12 col-md-8">
+                <select class="form-select" [(ngModel)]="patient.postSurgeryVisualAcuity" name="postSurgeryVisualAcuity">
+                  <option value="">Select VA Value</option>
+                  <option *ngFor="let va of vaOptions" [value]="va">{{ va }}</option>
+                </select>
               </div>
             </div>
 
-            <!-- ================= CAMERA (MOVED ONLY IN MOBILE) ================= -->
-            <div class="mt-3 d-block d-lg-none">
-
+            <!-- ================= CAMERA ================= -->
+            <div class="mt-3 d-block">
               <h6 class="mb-2">Camera</h6>
 
               <div class="border rounded p-2 text-center">
+                <video
+                  *ngIf="!photo"
+                  #video
+                  autoplay
+                  muted
+                  playsinline
+                  class="rounded w-100"
+                  style="height: 260px; object-fit: cover"
+                ></video>
 
-                <video *ngIf="!photo"
-                       #video
-                       autoplay
-                       muted
-                       playsinline
-                       class="rounded w-100"
-                       style="height:260px; object-fit:cover;">
-                </video>
-
-                <img *ngIf="photo"
-                     [src]="photo"
-                     class="rounded w-100"
-                     style="height:260px; object-fit:cover;">
+                <img
+                  *ngIf="photo"
+                  [src]="photo"
+                  class="rounded w-100"
+                  style="height: 260px; object-fit: cover"
+                />
               </div>
+
+              <input type="file" #photoInput accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
 
               <div class="d-flex gap-2 mt-2">
-                <button type="button" class="btn btn-success w-100" (click)="startCamera()">Start</button>
-                <button type="button" class="btn btn-warning w-100" (click)="capture()">Capture</button>
-                <button type="button" class="btn btn-secondary w-100" *ngIf="photo" (click)="photo=null">Retake</button>
+                <button type="button" class="btn btn-success w-100" (click)="startCamera()" *ngIf="!stream">
+                  <i class="bi bi-camera me-1"></i> Camera
+                </button>
+                <button type="button" class="btn btn-info w-100" (click)="photoInput.click()" *ngIf="!photo">
+                  <i class="bi bi-folder2-open me-1"></i> Browse
+                </button>
+                <button type="button" class="btn btn-warning w-100" (click)="capture()" *ngIf="stream && !photo">
+                  <i class="bi bi-camera-fill me-1"></i> Capture
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary w-100"
+                  *ngIf="photo"
+                  (click)="photo = null; stopCamera();"
+                >
+                  <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                </button>
               </div>
-
             </div>
 
-            <!-- SAVE BUTTON -->
-            <button class="btn btn-primary w-100 mt-3">
-              {{ isEditMode ? 'Update' : 'Save' }}
-            </button>
-
+    <!-- ACTION BUTTONS -->
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+      <button type="button" class="btn btn-outline-secondary me-md-2" (click)="resetForm()" *ngIf="!isEditMode">
+        <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+      </button>
+      <button type="button" class="btn btn-outline-danger me-md-2" (click)="resetForm()" *ngIf="isEditMode">
+        <i class="bi bi-x-lg me-1"></i> Cancel Edit
+      </button>
+      <button class="btn btn-primary px-5 shadow-sm" type="submit">
+        <i class="bi bi-save me-1"></i>
+        {{ isEditMode ? 'Update Beneficiary' : 'Save Beneficiary' }}
+      </button>
+    </div>
           </form>
-
         </div>
       </div>
-    </div>
-
-    <!-- ================= RIGHT PANEL ================= -->
-    <div class="col-12 col-lg-6 d-flex">
-
-      <div class="card shadow border-0 w-100 h-100 d-flex flex-column">
-
-        <div class="card-body d-flex flex-column">
-
-          <!-- CAMERA (DESKTOP ONLY - UNCHANGED) -->
-          <div class="d-none d-lg-block">
-
-            <h6 class="mb-2">Camera</h6>
-
-            <div class="border rounded p-2 text-center">
-
-              <video *ngIf="!photo"
-                     #video
-                     autoplay
-                     muted
-                     playsinline
-                     class="rounded w-100"
-                     style="height:260px; object-fit:cover;">
-              </video>
-
-              <img *ngIf="photo"
-                   [src]="photo"
-                   class="rounded w-100"
-                   style="height:260px; object-fit:cover;">
-            </div>
-
-            <div class="d-flex gap-2 mt-2">
-              <button class="btn btn-success w-100" (click)="startCamera()">Start</button>
-              <button class="btn btn-warning w-100" (click)="capture()">Capture</button>
-              <button class="btn btn-secondary w-100" *ngIf="photo" (click)="photo=null">Retake</button>
-            </div>
-
-          </div>
-
-          <hr>
-
-          <!-- SEARCH -->
-          <input class="form-control mb-2"
-                 placeholder="Search..."
-                 [(ngModel)]="searchText"
-                 name="searchText"
-                 (input)="filter()">
-<div id="printSection" style="background:white; padding:10px; width:fit-content;"></div>
-          <!-- TABLE (UNCHANGED) -->
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-              <thead class="table-dark">
-                <tr>
-                  <th>Name</th>
-                  <th>MRN</th>
-                  <th>Contact</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr *ngFor="let p of filtered.slice(0,2)">
-                  <td>{{ p.name }}</td>
-                  <td>{{ p.medicalRecordNumber }}</td>
-                  <td>{{ p.contactNo }}</td>
-                  <td>
-                    <button class="btn btn-primary btn-sm me-1" (click)="edit(p)">Edit</button>
-                    <button class="btn btn-info btn-sm me-1" (click)="view(p)">View</button>
-                    <button class="btn btn-danger btn-sm" (click)="delete(p.id)">Delete</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-      </div>
-
     </div>
 
   </div>
 </div>
-<!-- ================= VIEW POPUP ================= -->
-<div class="modal d-block" *ngIf="viewModal" style="background:rgba(0,0,0,0.6);">
+<!-- ================= PATIENT LIST MODAL ================= -->
+<div class="modal d-block" *ngIf="patientListModal" style="background: rgba(0, 0, 0, 0.6); z-index: 1050;">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Beneficiary List</h5>
+        <button type="button" class="btn-close" (click)="closePatientList()"></button>
+      </div>
+      <div class="modal-body">
+        <!-- GLOBAL SEARCH -->
+        <input
+          class="form-control mb-3"
+          placeholder="Global Search (Name, MRN, Contact)..."
+          [(ngModel)]="searchText"
+          name="patientListSearch"
+          (input)="filter()"
+          autofocus
+        />
+
+        <!-- PATIENT TABLE -->
+        <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
+          <table class="table table-bordered table-hover table-sm">
+            <thead class="table-dark sticky-top">
+              <tr>
+                <th>Name</th>
+                <th>MRN</th>
+                <th>Contact</th>
+                <th>Age</th>
+                <th width="180">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of filtered().slice(0, 15)">
+                <td>{{ p.name }}</td>
+                <td>{{ p.medicalRecordNumber }}</td>
+                <td>{{ p.contactNo }}</td>
+                <td>{{ p.age }}</td>
+                <td>
+                  <button class="btn btn-primary btn-sm me-1" (click)="editPatientFromModal(p)">
+                    <i class="bi bi-pencil"></i> Edit
+                  </button>
+                  <button class="btn btn-info btn-sm me-1" (click)="view(p)">
+                    <i class="bi bi-eye"></i> View
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="delete(p.id)">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="filtered().length === 0 && searchText">
+                <td colspan="5" class="text-center text-muted py-4">
+                  No beneficiaries found matching your search
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePatientList()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= VIEW POPUP (PRINT OPTIMIZED) ================= -->
+<div class="modal d-block" *ngIf="viewModal" style="background: rgba(0, 0, 0, 0.6); z-index: 1050;">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content p-4" id="printSection" #printSection>
-      <h4 class="text-center mb-4">Patient Full Details</h4>
+    <div class="modal-content">
       
-      <div class="row g-4">
-        <!-- ================= LEFT SIDE (DETAILS) ================= -->
-        <div class="col-md-7">
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Camp Code</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.campcode || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Beneficiary Name</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.name || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Gender</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.gender || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Age</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.age || '-' }} Years</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Contact Number</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.contactNo || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">National ID (NID)</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.nid || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Medical Record No</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.medicalRecordNumber || '-' }}</h6>
-            </div>
-            <div class="col-sm-12">
-              <p class="mb-1"><small class="text-muted">Full Address</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.address || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Pre-Surgery VA</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.preSurgeryVisualAcuity || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Post-Surgery VA</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.postSurgeryVisualAcuity || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Date of Surgery</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.dateOfSurgery || '-' }}</h6>
-            </div>
-            <div class="col-sm-6">
-              <p class="mb-1"><small class="text-muted">Surgery Type</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.typeOfSurgery || '-' }}</h6>
-            </div>
-            <div class="col-sm-12">
-              <p class="mb-1"><small class="text-muted">Eye Operated</small></p>
-              <h6 class="fw-bold">{{ selectedPatient?.eyeOperated || '-' }}</h6>
-            </div>
-          </div>
-        </div>
+      <!-- ACTION BUTTONS (HIDDEN WHEN PRINTING) -->
+      <div class="modal-header border-bottom-0 pb-0 no-print">
+        <h5 class="modal-title fw-bold">Beneficiary Details</h5>
+        <button type="button" class="btn-close" (click)="closeView()"></button>
+      </div>
 
-        <!-- ================= RIGHT SIDE (PHOTO + BUTTONS) ================= -->
-        <div class="col-md-5 text-center">
-          <p class="mb-3"><small class="text-muted">Beneficiary Photo</small></p>
+      <div class="modal-body p-4">
+        <!-- PRINTABLE AREA -->
+        <div id="printSection" #printSection class="print-container">
           
-          <img *ngIf="selectedPatient?.beneficiaryPhoto"
-               [src]="'data:image/png;base64,' + selectedPatient.beneficiaryPhoto"
-               width="100%"
-               height="220"
-               class="border rounded mb-3 shadow"
-               style="object-fit:cover;">
-
-          <div *ngIf="!selectedPatient?.beneficiaryPhoto" class="border rounded d-flex align-items-center justify-content-center mb-3" style="height:220px; background:#f8f9fa;">
-            <p class="text-muted mb-0">No Photo Available</p>
+          <!-- PROFESSIONAL HEADER -->
+          <div class="text-center border-bottom pb-3 mb-4">
+            <h3 class="fw-bold text-primary mb-1">BENEFICIARY RECORD</h3>
+            <p class="text-muted small mb-0">Generated: {{ currentDate | date:'medium' }}</p>
           </div>
 
-          <!-- ================= BUTTONS ================= -->
-          <div class="d-grid gap-2 hide-in-pdf">
-            <button class="btn btn-success" (click)="downloadPDF()">
-              <i class="bi bi-download me-2"></i>Download PDF
-            </button>
-            <button class="btn btn-secondary" (click)="closeView()">
-              Close
-            </button>
+          <div class="row g-4">
+            <!-- LEFT COLUMN - PATIENT DETAILS -->
+            <div class="col-md-8">
+              <div class="card border-0">
+                <div class="card-body p-0">
+                  <h6 class="fw-bold text-secondary mb-3 border-bottom pb-2">PATIENT INFORMATION</h6>
+                  
+                  <div class="row g-2">
+                    <div class="col-5 fw-medium text-muted">Beneficiary Name:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.name }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">MRN Number:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.medicalRecordNumber }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Camp Code:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.campcode }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Gender:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.gender }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Age:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.age }} Years</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Contact Number:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.contactNo }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">National ID:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.nid || '-' }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Full Address:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.address }}</div>
+                  </div>
+
+                  <hr class="my-4">
+
+                  <h6 class="fw-bold text-secondary mb-3 border-bottom pb-2">SURGERY DETAILS</h6>
+                  
+                  <div class="row g-2">
+                    <div class="col-5 fw-medium text-muted">Date of Surgery:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.dateOfSurgery | date:'longDate' }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Type of Surgery:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.typeOfSurgery || '-' }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Eye Operated:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.eyeOperated || '-' }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Pre-Surgery VA:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.preSurgeryVisualAcuity || '-' }}</div>
+                    
+                    <div class="col-5 fw-medium text-muted">Post-Surgery VA:</div>
+                    <div class="col-7 fw-semibold">{{ selectedPatient?.postSurgeryVisualAcuity || '-' }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN - PATIENT PHOTO -->
+            <div class="col-md-4 text-center">
+              <div class="card border p-3 rounded">
+                <p class="fw-medium text-muted mb-2">Beneficiary Photo</p>
+                <div class="border rounded overflow-hidden mx-auto" style="width: 160px; height: 180px;">
+                  <img
+                    *ngIf="selectedPatient?.beneficiaryPhoto"
+                    [src]="'data:image/png;base64,' + selectedPatient.beneficiaryPhoto"
+                    class="w-100 h-100"
+                    style="object-fit: cover"
+                    alt="Patient Photo"
+                  />
+                  <div *ngIf="!selectedPatient?.beneficiaryPhoto" class="d-flex align-items-center justify-content-center h-100 bg-light text-muted">
+                    No Photo
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- ACTION BUTTONS (HIDDEN WHEN PRINTING) -->
+      <div class="modal-footer border-top-0 no-print">
+        <button type="button" class="btn btn-secondary" (click)="closeView()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="printView()">
+          <i class="bi bi-printer me-2"></i> Print Document
+        </button>
+        <!-- <button type="button" class="btn btn-success" (click)="downloadPDF()">
+          <i class="bi bi-file-pdf me-2"></i> Download PDF
+        </button> -->
+      </div>
+
     </div>
   </div>
 </div>
+
+<!-- PRINT STYLES -->
+<style>
+@media print {
+  /* Hide EVERYTHING first */
+  body * {
+    visibility: hidden !important;
+    display: none !important;
+  }
+
+  /* Show ONLY the print section */
+  #printSection, #printSection * {
+    visibility: visible !important;
+    display: block !important;
+  }
+
+  /* Reset all parent elements up to body */
+  .modal, .modal-dialog, .modal-content, .modal-body, body, html {
+    visibility: visible !important;
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  /* Position print section properly at top of page */
+  #printSection {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    padding: 20px !important;
+  }
+
+  /* Hide all other elements */
+  .no-print, .modal-header, .modal-footer, .btn, .container-fluid {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 18mm;
+  }
+}
+
+.print-container {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  background: white;
+}
+</style>
