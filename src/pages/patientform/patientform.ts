@@ -54,7 +54,7 @@ export class Patientform implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   // ================= CAMERA =================
   async startCamera() {
@@ -273,7 +273,6 @@ export class Patientform implements AfterViewInit {
       this.toastService.showError('Surgery Date is required');
       return false;
     }
-
     return true;
   }
 

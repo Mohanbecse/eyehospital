@@ -572,6 +572,18 @@
           <i class="bi bi-file-pdf me-2"></i> Download PDF
         </button> -->
       </div>
+
+      <!-- ACTION BUTTONS (HIDDEN WHEN PRINTING) -->
+      <div class="modal-footer border-top-0 no-print">
+        <button type="button" class="btn btn-secondary" (click)="closeView()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="printView()">
+          <i class="bi bi-printer me-2"></i> Print Document
+        </button>
+        <!-- <button type="button" class="btn btn-success" (click)="downloadPDF()">
+          <i class="bi bi-file-pdf me-2"></i> Download PDF
+        </button> -->
+      </div>
+
     </div>
   </div>
 </div>
