@@ -201,7 +201,8 @@ export class Patientdashboard implements OnInit {
   }
 
   formatDateString(date: Date): string {
-    return date.toISOString().split('T')[0];
+    var localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    return localDate.toISOString().split('T')[0];
   }
 
   validateDateRange() {
@@ -422,7 +423,12 @@ async generateExcel() {
       mrn: p.medicalRecordNumber,
       preVALeft: p.preSurgeryVisualAcuityLeft,
       preVARight: p.preSurgeryVisualAcuityRight,
-      dos: p.dateOfSurgery ? new Date(p.dateOfSurgery) : '',
+      dos: p.dateOfSurgery
+          ? new Date(
+              new Date(p.dateOfSurgery).getTime() -
+                new Date(p.dateOfSurgery).getTimezoneOffset() * 60000,
+            )
+          : '',
       tos: p.typeOfSurgery,
       eye: p.eyeOperated,
       postVA: p.postSurgeryVisualAcuity,
